@@ -401,4 +401,31 @@ public class FortControllerTest
         this.mockFortService.VerifyAll();
         this.mockUpdateDataService.VerifyAll();
     }
+
+    [Fact]
+    public async Task SetNewFortPlant_CallsSetNewFortPlant()
+    {
+        UpdateDataList updateDataList = new() { build_list = new List<BuildList>() };
+
+        IEnumerable<int> plantIdList = Enumerable.Range(1, 3);
+        this.mockFortService
+            .Setup(x => x.SetFortPlantIdList(plantIdList))
+            .Returns(Task.CompletedTask);
+
+        this.mockUpdateDataService
+            .Setup(x => x.SaveChangesAsync())
+            .ReturnsAsync(updateDataList);
+
+        FortSetNewFortPlantData data = (
+            await this.fortController.SetNewFortPlant(
+                new FortSetNewFortPlantRequest()
+                {
+                    fort_plant_id_list = plantIdList
+                }
+            )
+        ).GetData<FortSetNewFortPlantData>()!;
+
+        data.result.Should().Be(1);
+        data.update_data_list.Should().BeEquivalentTo(updateDataList);
+    }
 }

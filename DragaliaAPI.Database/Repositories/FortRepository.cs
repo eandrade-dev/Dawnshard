@@ -81,9 +81,15 @@ public class FortRepository : IFortRepository
         return result;
     }
 
-    public async Task GetFortPlantIdList(IEnumerable<int> fort_plant_id_list)
+    public async Task SetFortPlantIdList(HashSet<long> fortPlantIdHashSet)
     {
-        // What do
+        List<DbFortBuild> builds = await this.Builds
+            .Where(x => fortPlantIdHashSet.Contains(x.BuildId))
+            .ToListAsync();
+        builds.ForEach(b =>
+        {
+            b.IsNew = true;
+        });
     }
 
     public async Task UpdateFortMaximumCarpenter(int carpenterNum)

@@ -19,5 +19,5 @@ public interface IFortService
 
     Task<DbFortBuild> LevelupStart(long buildId);
     Task<DbFortBuild> Move(long buildId, int afterPositionX, int afterPositionZ);
-    Task GetFortPlantIdList(IEnumerable<int> fortPlantIdList);
+    Task SetFortPlantIdList(IEnumerable<int> fortPlantIdList);
 }

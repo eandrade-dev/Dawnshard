@@ -291,17 +291,25 @@ public class FortController : DragaliaControllerBase
         return this.Ok(data);
     }
 
-    // What exactly does it do
+    /**
+     * This request receives a list of builds (chosen by the client app) 
+     * and sets the IsNew property to true. This should be used to show the
+     * red badge on the building card ingame.
+     * We will simply set the flag here and let the app do its thing.
+     */
     [HttpPost("set_new_fort_plant")]
     public async Task<DragaliaResult> SetNewFortPlant(FortSetNewFortPlantRequest request)
     {
-        await this.fortService.GetFortPlantIdList(request.fort_plant_id_list);
+        await this.fortService.SetFortPlantIdList(request.fort_plant_id_list);
 
         UpdateDataList updateDataList = this.updateDataService.GetUpdateDataList(
             this.DeviceAccountId
         );
 
-        FortSetNewFortPlantData data = new() { result = 1, update_data_list = updateDataList };
+        FortSetNewFortPlantData data = new() {
+            result = 1, 
+            update_data_list = updateDataList 
+        };
         return this.Ok(data);
     }
 

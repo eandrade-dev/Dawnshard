@@ -9,7 +9,7 @@ public interface IFortRepository
     IQueryable<DbFortBuild> Builds { get; }
     Task<DbFortDetail> GetFortDetail();
     Task<bool> CheckPlantLevel(FortPlants plant, int requiredLevel);
-    Task GetFortPlantIdList(IEnumerable<int> fort_plant_id_list);
+    Task SetFortPlantIdList(HashSet<long> fortPlantIdHashSet);
     Task UpdateFortMaximumCarpenter(int carpenter_num);
     Task<DbFortBuild> GetBuilding(long buildId);
     Task AddBuild(DbFortBuild build);

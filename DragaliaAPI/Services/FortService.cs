@@ -264,9 +264,12 @@ public class FortService : IFortService
         return build;
     }
 
-    public async Task GetFortPlantIdList(IEnumerable<int> fortPlantIdList)
+    public async Task SetFortPlantIdList(IEnumerable<int> fortPlantIdList)
     {
-        await this.fortRepository.GetFortPlantIdList(fortPlantIdList);
+        HashSet<long> fortPlantIdHashSet = new(
+            fortPlantIdList.Select(i => (long)i)
+        );
+        await this.fortRepository.SetFortPlantIdList(fortPlantIdHashSet);
     }
 
     private async Task Upgrade(DbFortBuild build, FortPlantDetail plantDetail)
