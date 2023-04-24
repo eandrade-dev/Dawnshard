@@ -427,5 +427,8 @@ public class FortControllerTest
 
         data.result.Should().Be(1);
         data.update_data_list.Should().BeEquivalentTo(updateDataList);
+
+        this.mockFortService.VerifyAll();
+        this.mockUpdateDataService.VerifyAll();
     }
 }

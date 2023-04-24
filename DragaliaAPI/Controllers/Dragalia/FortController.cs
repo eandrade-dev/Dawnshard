@@ -302,9 +302,7 @@ public class FortController : DragaliaControllerBase
     {
         await this.fortService.SetFortPlantIdList(request.fort_plant_id_list);
 
-        UpdateDataList updateDataList = this.updateDataService.GetUpdateDataList(
-            this.DeviceAccountId
-        );
+        UpdateDataList updateDataList = await this.updateDataService.SaveChangesAsync();
 
         FortSetNewFortPlantData data = new() {
             result = 1, 
